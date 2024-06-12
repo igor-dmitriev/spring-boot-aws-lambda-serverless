@@ -83,3 +83,5 @@ terraform.rc
 .jpb
 
 config/checkstyle/checkstyle.xml
+
+.aws-sam/build
