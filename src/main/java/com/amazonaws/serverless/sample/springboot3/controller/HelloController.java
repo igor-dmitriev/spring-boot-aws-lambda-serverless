@@ -10,7 +10,7 @@ public class HelloController {
 
   @GetMapping("/hello")
   public String hello() {
-    return "Spring Boot Serverless strikes back!";
+    return "Hello 2";
   }
 
 }
