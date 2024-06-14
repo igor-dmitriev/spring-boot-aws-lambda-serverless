@@ -7,8 +7,6 @@ import com.amazonaws.serverless.sample.springboot3.StreamLambdaHandler;
 import com.amazonaws.services.lambda.runtime.ClientContext;
 import com.amazonaws.services.lambda.runtime.CognitoIdentity;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
-import java.sql.Connection;
-import javax.sql.DataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.crac.Context;
@@ -31,15 +29,7 @@ public class SnapshotConfiguration implements Resource {
   @Override
   public void beforeCheckpoint(Context<? extends Resource> context) throws Exception {
     LOG.info("Before checkpoint");
-    DataSource dataSource = dataSourceBean.getDataSource();
-    Connection databaseConnection = dataSource.getConnection();
-
     StreamLambdaHandler.handler.proxy(getAwsProxyRequest(), new MockLambdaContext());
-
-    if (!databaseConnection.isClosed()) {
-      LOG.info("Closing connection");
-      databaseConnection.close();
-    }
   }
 
   private AwsProxyRequest getAwsProxyRequest() {

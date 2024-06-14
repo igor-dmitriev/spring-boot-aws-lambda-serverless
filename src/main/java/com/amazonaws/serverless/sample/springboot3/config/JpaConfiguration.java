@@ -1,5 +1,6 @@
 package com.amazonaws.serverless.sample.springboot3.config;
 
+import com.p6spy.engine.spy.P6DataSource;
 import jakarta.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
@@ -20,8 +21,7 @@ public class JpaConfiguration {
     dataSource.setUrl("jdbc:postgresql://" + System.getenv("DB_HOST") + ":5432/spring-lambda");
     dataSource.setUsername(System.getenv("DB_LOGIN"));
     dataSource.setPassword(System.getenv("DB_PASSWORD"));
-
-    return dataSource;
+    return new P6DataSource(dataSource);
   }
 
   @Bean
