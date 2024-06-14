@@ -1,12 +1,13 @@
 package com.amazonaws.serverless.sample.springboot3.config;
 
+import com.amazonaws.serverless.proxy.model.ApiGatewayRequestIdentity;
 import com.amazonaws.serverless.proxy.model.AwsProxyRequest;
+import com.amazonaws.serverless.proxy.model.AwsProxyRequestContext;
 import com.amazonaws.serverless.sample.springboot3.StreamLambdaHandler;
 import com.amazonaws.services.lambda.runtime.ClientContext;
 import com.amazonaws.services.lambda.runtime.CognitoIdentity;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import java.sql.Connection;
-import java.util.Map;
 import javax.sql.DataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +15,6 @@ import org.crac.Context;
 import org.crac.Core;
 import org.crac.Resource;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 @Configuration
@@ -42,51 +42,62 @@ public class SnapshotConfiguration implements Resource {
     }
   }
 
+  private AwsProxyRequest getAwsProxyRequest() {
+    ApiGatewayRequestIdentity identity = new ApiGatewayRequestIdentity();
+    identity.setApiKey("foo");
+    identity.setAccountId("foo");
+    identity.setAccessKey("foo");
+
+    AwsProxyRequestContext reqCtx = new AwsProxyRequestContext();
+    reqCtx.setPath("/health");
+    reqCtx.setStage("default");
+    reqCtx.setAuthorizer(null);
+    reqCtx.setIdentity(identity);
+
+    AwsProxyRequest req = new AwsProxyRequest();
+    req.setHttpMethod("GET");
+    req.setPath("/health");
+    req.setBody("");
+    req.setRequestContext(reqCtx);
+
+    return req;
+  }
+
   @Override
   public void afterRestore(Context<? extends Resource> context) throws Exception {
     LOG.info("Restoring");
-  }
-
-  private static AwsProxyRequest getAwsProxyRequest() {
-    final AwsProxyRequest awsProxyRequest = new AwsProxyRequest();
-    awsProxyRequest.setHttpMethod(HttpMethod.GET.name());
-    awsProxyRequest.setPath("/health");
-    awsProxyRequest.setResource("/{proxy+}");
-    awsProxyRequest.setBody("");
-    awsProxyRequest.setPathParameters(Map.of("proxy", "/health"));
-    return awsProxyRequest;
   }
 
   private static class MockLambdaContext implements com.amazonaws.services.lambda.runtime.Context {
 
     @Override
     public String getAwsRequestId() {
-      return "";
+      return "gfdgdfg";
     }
 
     @Override
     public String getLogGroupName() {
-      return "";
+      return "sdfdsg";
     }
 
     @Override
     public String getLogStreamName() {
-      return "";
+      return "sdgdfg";
     }
 
     @Override
     public String getFunctionName() {
-      return "";
+      return "gdfgdfg";
     }
 
     @Override
     public String getFunctionVersion() {
-      return "";
+      return "null";
     }
 
     @Override
     public String getInvokedFunctionArn() {
-      return "";
+      return "null";
     }
 
     @Override
