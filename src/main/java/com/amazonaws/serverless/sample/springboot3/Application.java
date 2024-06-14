@@ -1,6 +1,5 @@
 package com.amazonaws.serverless.sample.springboot3;
 
-import com.amazonaws.serverless.sample.springboot3.controller.HealthCheckController;
 import com.amazonaws.serverless.sample.springboot3.controller.HelloController;
 import com.amazonaws.serverless.sample.springboot3.controller.UserController;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 @SpringBootApplication
-@Import({UserController.class, HelloController.class, HealthCheckController.class})
+@Import({UserController.class, HelloController.class})
 public class Application {
 
   // silence console logging
