@@ -21,7 +21,7 @@ public class JpaConfiguration {
     dataSource.setUrl("jdbc:postgresql://" + System.getenv("DB_HOST") + ":5432/spring-lambda");
     dataSource.setUsername(System.getenv("DB_LOGIN"));
     dataSource.setPassword(System.getenv("DB_PASSWORD"));
-    return new P6DataSource(dataSource);
+    return new CustomDatasource(new P6DataSource(dataSource));
   }
 
   @Bean

@@ -17,18 +17,18 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 @Configuration
 public class SnapshotConfiguration implements Resource {
-  private static final Logger LOG = LogManager.getLogger();
+  private static final Logger log = LogManager.getLogger();
   LocalContainerEntityManagerFactoryBean dataSourceBean;
 
   public SnapshotConfiguration(LocalContainerEntityManagerFactoryBean dataSourceBean) {
-    LOG.info("Snapshot config constructor");
+    log.info("Snapshot config constructor");
     Core.getGlobalContext().register(SnapshotConfiguration.this);
     this.dataSourceBean = dataSourceBean;
   }
 
   @Override
   public void beforeCheckpoint(Context<? extends Resource> context) throws Exception {
-    LOG.info("Before checkpoint");
+    log.info("Before checkpoint");
     StreamLambdaHandler.handler.proxy(getAwsProxyRequest(), new MockLambdaContext());
   }
 
@@ -55,7 +55,7 @@ public class SnapshotConfiguration implements Resource {
 
   @Override
   public void afterRestore(Context<? extends Resource> context) throws Exception {
-    LOG.info("Restoring");
+    log.info("Restoring");
   }
 
   private static class MockLambdaContext implements com.amazonaws.services.lambda.runtime.Context {
