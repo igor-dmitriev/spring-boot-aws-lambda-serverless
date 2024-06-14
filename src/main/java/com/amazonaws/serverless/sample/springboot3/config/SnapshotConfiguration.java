@@ -39,14 +39,14 @@ public class SnapshotConfiguration implements Resource {
     identity.setAccessKey("foo");
 
     AwsProxyRequestContext reqCtx = new AwsProxyRequestContext();
-    reqCtx.setPath("/health");
+    reqCtx.setPath("/users");
     reqCtx.setStage("default");
     reqCtx.setAuthorizer(null);
     reqCtx.setIdentity(identity);
 
     AwsProxyRequest req = new AwsProxyRequest();
     req.setHttpMethod("GET");
-    req.setPath("/health");
+    req.setPath("/users");
     req.setBody("");
     req.setRequestContext(reqCtx);
 
