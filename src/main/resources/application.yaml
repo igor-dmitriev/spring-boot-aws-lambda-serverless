@@ -26,4 +26,4 @@ spring:
   flyway:
     fail-on-missing-locations: true
     locations: db/migration/common
-    enabled: true
+    enabled: false
