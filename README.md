@@ -9,6 +9,18 @@ The application can be deployed in an AWS account using the [Serverless Applicat
 * [Gradle](https://gradle.org/) or [Maven](https://maven.apache.org/)
 
 ## Deployment
+Add Environment variables to template.yml
+```
+Resources:
+    SpringLambdaFunction:
+        Properties:
+            Environment:
+                Variables:
+                    DB_HOST: 
+                    DB_LOGIN: 
+                    DB_PASSWORD:                
+```
+
 In a shell, navigate to the sample's folder and use the SAM CLI to build a deployable package
 ```
 $ sam build
@@ -29,13 +41,13 @@ Once the deployment is completed, the SAM CLI will print out the stack's outputs
 ---------------------------------------------------------------------------------------------------------
 OutputKey-Description                        OutputValue
 ---------------------------------------------------------------------------------------------------------
-PetStoreApi - URL for application            https://xxxxxxxxxx.execute-api.us-west-2.amazonaws.com/pets
+PetStoreApi - URL for application            https://xxxxxxxxxx.execute-api.eu-central-1.amazonaws.com/users
 ---------------------------------------------------------------------------------------------------------
 
-$ curl https://xxxxxxxxxx.execute-api.us-west-2.amazonaws.com/pets
+$ curl https://xxxxxxxxxx.execute-api.eu-central-1.amazonaws.com/users
 ```
 
-## DB
+## Run DB locally
 `
 docker run -p 5432:5432 -e POSTGRES_USER=spring-lambda -e POSTGRES_PASSWORD=spring123 -e POSTGRES_DB=spring-lambda -d --name spring-lambda postgres:16.0
 `
