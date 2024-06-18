@@ -21,6 +21,13 @@ Resources:
                     DB_PASSWORD:                
 ```
 
+How to build and deploy in one click
+```
+./deploy.sh
+
+```
+
+
 In a shell, navigate to the sample's folder and use the SAM CLI to build a deployable package
 ```
 $ sam build

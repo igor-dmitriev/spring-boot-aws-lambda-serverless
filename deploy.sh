@@ -1,0 +1,1 @@
+./gradlew clean build -x test ; sam build ; sam deploy
